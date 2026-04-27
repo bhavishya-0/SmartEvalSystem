@@ -2,10 +2,10 @@
   "name": "smart-evaluation-and-grading-system",
   "version": "1.0.0",
   "description": "Full-stack web app for university faculty to manage evaluation and grading.",
-  "main": "dist/server.js",
+  "main": "api/index.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc -p tsconfig.server.json && node copy-public.js",
+    "build": "echo 'Build handled by Vercel'",
     "start": "node dist/server.js",
     "clear-db": "tsx src/scripts/clear-db.ts"
   },
