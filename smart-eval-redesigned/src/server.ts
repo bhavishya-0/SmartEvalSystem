@@ -17,7 +17,7 @@ const port = Number(process.env.PORT || 5000);
 // ── Middleware ──────────────────────────────────────────────────────────────
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(process.cwd(), "src", "public")));
+app.use(express.static(path.join(process.cwd(), "public")));
 
 // ── API Routes ──────────────────────────────────────────────────────────────
 app.use("/api/auth", authRoutes);
@@ -27,6 +27,11 @@ app.use("/api/evaluations", evaluationsRoutes);
 app.use("/api/reports", reportsRoutes);
 
 app.get("/api/health", (_req, res) => res.json({ status: "ok", db: mongoose.connection.readyState === 1 ? "connected" : "disconnected" }));
+
+// ── Serve index.html for SPA routing ────────────────────────────────────────
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(process.cwd(), "public", "index.html"));
+});
 
 // ── Global error handler ────────────────────────────────────────────────────
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
