@@ -19,7 +19,11 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static files from public directory
-app.use(express.static(path.join(__dirname, "..", "public")));
+const publicDir = path.resolve(process.cwd(), "public");
+app.use(express.static(publicDir, {
+  maxAge: "1d",
+  etag: false,
+}));
 
 // ── MongoDB Connection (lazy - connect on first API call) ────────────────────
 const MONGO_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/smart-eval";
@@ -70,7 +74,8 @@ app.get("/api/health", (_req, res) => {
 
 // ── SPA Fallback Route ──────────────────────────────────────────────────────
 app.get("*", (_req, res) => {
-  res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+  const indexPath = path.resolve(process.cwd(), "public", "index.html");
+  res.sendFile(indexPath);
 });
 
 // ── Global error handler ────────────────────────────────────────────────────

@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "builds": [
     {
       "src": "src/server.ts",
@@ -12,8 +14,16 @@
       "dest": "src/server.ts"
     },
     {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "src": "/public/(.*)",
+      "dest": "/public/$1"
+    },
+    {
+      "src": "/(.*\\.[a-z]+)$",
+      "dest": "/public/$1"
+    },
+    {
+      "src": "/.*",
+      "dest": "src/server.ts"
     }
   ]
 }
