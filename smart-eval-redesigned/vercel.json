@@ -4,26 +4,18 @@
   "outputDirectory": "dist",
   "builds": [
     {
-      "src": "src/server.ts",
+      "src": "dist/server.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "src/server.ts"
-    },
-    {
-      "src": "/public/(.*)",
-      "dest": "/public/$1"
-    },
-    {
-      "src": "/(.*\\.[a-z]+)$",
-      "dest": "/public/$1"
+      "dest": "/dist/server.js"
     },
     {
       "src": "/.*",
-      "dest": "src/server.ts"
+      "dest": "/dist/server.js"
     }
   ]
 }

@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc -p tsconfig.server.json",
+    "build": "tsc -p tsconfig.server.json && node copy-public.js",
     "start": "node dist/server.js",
     "clear-db": "tsx src/scripts/clear-db.ts"
   },

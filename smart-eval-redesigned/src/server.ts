@@ -19,7 +19,12 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static files from public directory
-const publicDir = path.resolve(process.cwd(), "public");
+// In production (dist/server.js), public is at dist/public
+// In development, public is at ./public
+const publicDir = process.env.NODE_ENV === "production" 
+  ? path.join(__dirname, "public")
+  : path.resolve(process.cwd(), "public");
+
 app.use(express.static(publicDir, {
   maxAge: "1d",
   etag: false,
@@ -74,7 +79,9 @@ app.get("/api/health", (_req, res) => {
 
 // ── SPA Fallback Route ──────────────────────────────────────────────────────
 app.get("*", (_req, res) => {
-  const indexPath = path.resolve(process.cwd(), "public", "index.html");
+  const indexPath = process.env.NODE_ENV === "production"
+    ? path.join(__dirname, "public", "index.html")
+    : path.resolve(process.cwd(), "public", "index.html");
   res.sendFile(indexPath);
 });
 
