@@ -12,12 +12,8 @@
       "dest": "src/server.ts"
     },
     {
-      "src": "/public/(.*)",
-      "dest": "src/public/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "src/public/$1"
+      "dest": "/$1"
     }
   ]
 }
